@@ -53,6 +53,15 @@ class User extends Authenticatable
         parent::boot();
         self::creating(function ($model) {
             $model->id = (string) Uuid::generate(4);
+            $model->last_active = Carbon::now()->startOfDay()->timestamp;
         });
     }
+
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address and name...
+        return $this->email;
+    }
+
+
 }
