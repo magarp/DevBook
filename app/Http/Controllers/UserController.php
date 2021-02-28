@@ -37,6 +37,21 @@ class UserController extends Controller
 
   }
 
+  public function getUserProfile(){
+
+    $user = auth()->user();
+    return new UserResource($user);
+
+  }
+
+  public function deleteUserProfile(){
+
+    $user = auth()->user();
+    $user->delete();
+    return response()->json(['data'=> ['message' => 'User deleted successfully.']]);
+
+  }
+
 
 
 

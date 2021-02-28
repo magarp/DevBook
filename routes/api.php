@@ -17,7 +17,8 @@ use App\Http\Controllers\UserController;
 
 Route::middleware('auth:api')->group(function(){
   Route::PATCH('/profile', [UserController::class, 'updateUserProfile']);
-
+  Route::get('/profile', [UserController::class, 'getUserProfile']);
+  Route::DELETE('/profile', [UserController::class, 'deleteUserProfile']);
 
 });
 
