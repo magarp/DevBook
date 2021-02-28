@@ -26,6 +26,7 @@ run the following command to install passport
 * POST `http://localhost:8000/api/register`
   * Form Data
     * first_name
+    * last_name
     * dob
     * national_insurance_number
     * profile_image(file)
@@ -43,6 +44,7 @@ run the following command to install passport
     * Accept : application/json
   * Form Data
     * first_name
+    * last_name
     * dob
     * profile_image(file)
     * full_address
