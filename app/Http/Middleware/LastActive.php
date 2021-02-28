@@ -19,7 +19,7 @@ class LastActive
     {
         $user = auth()->user();
         if($user){
-          // $user->last_active = Carbon::now()->startOfDay()->timestamp;
+          $user->last_active = Carbon::now()->startOfDay()->timestamp;
         }
         return $next($request);
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\FindUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +26,7 @@ class UserController extends Controller
 
   }
 
-  public function updateUserProfile(Request $request){
+  public function updateUserProfile(UpdateUserRequest $request){
 
     $user = auth()->user();
     $data = $request->only('first_name','last_name','full_address','bio','password');
@@ -49,6 +51,13 @@ class UserController extends Controller
     $user = auth()->user();
     $user->delete();
     return response()->json(['data'=> ['message' => 'User deleted successfully.']]);
+
+  }
+
+  public function findUsers(FindUserRequest $request){
+
+    $users = User::where('bio', 'like', '%' . $request->keyword . '%')->get();
+    return new UserResource($users);
 
   }
 

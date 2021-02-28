@@ -1,62 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel 8.2 REST APi for DevBook
+This API is created using Laravel 8.2 API Resource. It has Users. Protected routes are also added. Protected routes are accessed via Passport access token. The program will allow the user to create, update, read, and delete User model. I have also added a scheduler which will run every day to clean inactive users. If the user are inactive for 6 month, notification mail will be sent using mailtrap and deleted if they are still inactive following week. Middleware LastActive is used in order to record the inactivity of the user. 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+#### Following are the Models
+* User
 
-## About Laravel
+#### Usage
+Clone the project via git clone or download the zip file.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+##### .env
+Create a database and connect your database in .env file. Setup your mail configuration file. I am using Mailtrap and the smtp driver to send your email messages to a "dummy" mailbox.
+##### Composer Install
+cd into the project directory via terminal and run the following  command to install composer packages.
+###### `composer install`
+##### Generate Key
+then run the following command to generate fresh key.
+###### `php artisan key:generate`
+##### Run Migration
+then run the following command to create migrations in the database.
+###### `php artisan migrate`
+##### Passport Install
+run the following command to install passport
+###### `php artisan passport:install`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### API EndPoints
+* POST `http://localhost:8000/api/register`
+->  Form Data
+    * first_name
+    * dob
+    * national_insurance_number
+    * profile_image(file)
+    * full_address
+    * bio
+    * email
+    * password
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-> Response
+    * access_token
 
-## Learning Laravel
+* POST `http://localhost:8000/api/profile` - Only the provided field will be updated.
+->  Headers
+    * Authorization : 'Bearer' + {{access_token}}
+    * Accept : application/json
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+->  Form Data
+    * first_name
+    * dob
+    * profile_image(file)
+    * full_address
+    * password
+    * _method=PATCH
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-> Response
+    * updated user record.
 
-## Laravel Sponsors
+* DELETE `http://localhost:8000/api/profile`
+->  Headers
+    * Authorization : 'Bearer' + {{access_token}}
+    * Accept : application/json
+-> Response
+    * User deleted success message.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* GET `http://localhost:8000/api/profile`
+->  Headers
+    * Authorization : 'Bearer' + {{access_token}}
+    * Accept : application/json
+-> Response
+    * User record    
+* GET `http://localhost:8000/api/find-users?keyword=test` - Keyword test will be searched in the bio.
+->  Headers
+    * Authorization : 'Bearer' + {{access_token}}
+    * Accept : application/json
+-> Response
+    * User collection based on the keyword match within the users bio.
