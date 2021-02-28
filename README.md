@@ -8,7 +8,7 @@ This API is created using Laravel 8.2 API Resource. The program will allow the u
 Clone the project via git clone or download the zip file.
 
 ##### .env
-Create a database and connect your database in .env file. Setup your mail configuration file. I am using Mailtrap and the smtp driver to send your email messages to a "dummy" mailbox.
+Create a env file. Create a database and connect your database in .env file. Setup your mail configuration file. I am using Mailtrap and the smtp driver to send your email messages to a "dummy" mailbox.
 ##### Composer Install
 cd into the project directory via terminal and run the following  command to install composer packages.
 ###### `composer install`
@@ -17,11 +17,12 @@ then run the following command to generate fresh key.
 ###### `php artisan key:generate`
 ##### Run Migration
 then run the following command to create migrations in the database.
-###### `php artisan migrate`
+###### `php artisan migrate:fresh`
 ##### Passport Install
 run the following command to install passport
 ###### `php artisan passport:install`
-
+serve the program
+###### `php artisan serve`
 ### API EndPoints
 * POST `http://localhost:8000/api/register`
   * Form Data
