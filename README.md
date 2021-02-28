@@ -1,5 +1,5 @@
 # Laravel 8.2 REST APi for DevBook
-This API is created using Laravel 8.2 API Resource. It has Users. Protected routes are also added. Protected routes are accessed via Passport access token. The program will allow the user to create, update, read, and delete User model. I have also added a scheduler which will run every day to clean inactive users. If the user are inactive for 6 month, notification mail will be sent using mailtrap and deleted if they are still inactive following week. Middleware LastActive is used in order to record the inactivity of the user. 
+This API is created using Laravel 8.2 API Resource. The program will allow the user to create, update, read, and delete User model. It has scheduler, which will run every day to clean inactive users. If the user are inactive for 6 month, notification mail will be sent using mailtrap and deleted if they are still inactive following week. Middleware LastActive is used in order to record the inactivity of the user. The program also allows user to find other user based on the keyword provided on the api route(api/find-users). It also contains protected routes which are accessed via Passport access token.
 
 #### Following are the Models
 * User
