@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUserRequest;
+
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 
 class UserController extends Controller
@@ -20,5 +23,21 @@ class UserController extends Controller
     return response()->json(['data'=> ['access_token' => $access_token]]);
 
   }
+
+  public function updateUserProfile(Request $request){
+
+    $user = auth()->user();
+    $data = $request->only('first_name','last_name','full_address','bio','password');
+    if($request->hasFile('profile_image')){
+      if (Storage::disk('public')->exists($user->profile_image)) Storage::disk('public')->delete($user->profile_image);
+      $data['profile_image'] = $request->file('profile_image')->store('profileImages');
+    }
+    User::find($user->id)->update($data);
+    return new UserResource(User::find($user->id));
+
+  }
+
+
+
 
 }
