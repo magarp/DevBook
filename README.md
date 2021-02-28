@@ -45,7 +45,6 @@ run the following command to install passport
   * Form Data
     * first_name
     * last_name
-    * dob
     * profile_image(file)
     * full_address
     * password
