@@ -24,7 +24,7 @@ run the following command to install passport
 
 ### API EndPoints
 * POST `http://localhost:8000/api/register`
-->  Form Data
+  * Form Data
     * first_name
     * dob
     * national_insurance_number
@@ -34,15 +34,14 @@ run the following command to install passport
     * email
     * password
 
--> Response
+  * Response
     * access_token
 
 * POST `http://localhost:8000/api/profile` - Only the provided field will be updated.
-->  Headers
+  * Headers
     * Authorization : 'Bearer' + {{access_token}}
     * Accept : application/json
-
-->  Form Data
+  * Form Data
     * first_name
     * dob
     * profile_image(file)
@@ -50,25 +49,25 @@ run the following command to install passport
     * password
     * _method=PATCH
 
--> Response
+  * Response
     * updated user record.
 
 * DELETE `http://localhost:8000/api/profile`
-->  Headers
+  * Headers
     * Authorization : 'Bearer' + {{access_token}}
     * Accept : application/json
--> Response
+  * Response
     * User deleted success message.
 
 * GET `http://localhost:8000/api/profile`
-->  Headers
+  * Headers
     * Authorization : 'Bearer' + {{access_token}}
     * Accept : application/json
--> Response
+  * Response
     * User record    
 * GET `http://localhost:8000/api/find-users?keyword=test` - Keyword test will be searched in the bio.
-->  Headers
+  * Headers
     * Authorization : 'Bearer' + {{access_token}}
     * Accept : application/json
--> Response
+  * Response
     * User collection based on the keyword match within the users bio.
